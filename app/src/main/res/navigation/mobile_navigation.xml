@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_dashboard">
+
+    <!-- Core POS Flow -->
+    <fragment
+        android:id="@+id/nav_dashboard"
+        android:name="com.orderpos.ui.user.DashboardFragment"
+        android:label="Dashboard"
+        android:icon="@drawable/home"
+        >
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_new_order"
+        android:name="com.orderpos.ui.user.NewOrderFragment"
+        android:label="ActiveOrderFragment" />
+
+    <fragment
+        android:id="@+id/nav_active_orders"
+        android:name="com.orderpos.ui.user.ActiveOrderFragment"
+        android:label="ActiveOrderFragment" />
+
+
+    <fragment
+        android:id="@+id/nav_tables"
+        android:name="com.orderpos.ui.user.FloorPlanFragment"
+        android:label="FloorPlanFragment" />
+
+    <fragment
+        android:id="@+id/nav_reports"
+        android:name="com.orderpos.ui.user.ReportFragment"
+        android:label="ReportFragment" />
+
+
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.orderpos.ui.admin.SettingsFragment"
+        android:label="NewOrderFragment" />
+
+
+
+    <fragment
+        android:id="@+id/nav_logout"
+        android:name="com.orderpos.ui.user.LogoutFragment"
+        android:label="LogoutFragment" />
+
+
+    <fragment
+        android:id="@+id/mostOrderFragment"
+        android:name="com.orderpos.ui.user.MostOrderFragment"
+        android:label="MostOrderFragment" />
+
+
+</navigation>

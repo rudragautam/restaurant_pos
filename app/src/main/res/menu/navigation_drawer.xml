@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+
+        <!-- Core POS Features -->
+        <item
+            android:id="@+id/nav_dashboard"
+            android:icon="@drawable/home"
+            android:title="Dashboard" />
+
+        <item
+            android:id="@+id/nav_new_order"
+            android:icon="@drawable/ic_pos_terminal"
+            android:title="New Order" />
+
+        <item
+            android:id="@+id/nav_active_orders"
+            android:icon="@drawable/ic_list_alt"
+            android:title="Active Orders" />
+
+        <item
+            android:id="@+id/nav_tables"
+            android:icon="@drawable/ic_table_restaurant"
+            android:title="Tables" />
+
+        <!-- Your Existing Items (Modified) -->
+
+        <item
+            android:id="@+id/nav_reports"
+            android:icon="@drawable/graph"
+            android:title="Reports" />  <!-- More descriptive -->
+
+    <item
+        android:id="@+id/nav_settings"
+        android:icon="@drawable/setting"
+        android:title="Settings" />  <!-- Plural for consistency -->
+
+    <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/logout"
+            android:title="End Shift" />  <!-- POS-specific action -->
+
+</menu>

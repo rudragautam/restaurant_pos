@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/settings_navigation"
+    app:startDestination="@+id/nav_reataurants_list">
+
+    <!-- Core POS Flow -->
+    <fragment
+        android:id="@+id/nav_dashboard"
+        android:name="com.orderpos.ui.admin.adddetail.AddRestaurantFragment"
+        android:label="Dashboard"
+        android:icon="@drawable/home"
+        >
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.orderpos.ui.admin.SettingsFragment"
+        android:label="NewOrderFragment" />
+
+    <fragment
+        android:id="@+id/nav_reataurants_list"
+        android:name="com.orderpos.ui.admin.detaillist.RestaurantListFragment"
+        android:label="NewOrderFragment" />
+    <fragment
+        android:id="@+id/addCategoryFragment"
+        android:name="com.orderpos.ui.admin.adddetail.AddCategoryFragment"
+        android:label="AddCategoryFragment" />
+    <fragment
+        android:id="@+id/addMenuFragment"
+        android:name="com.orderpos.ui.admin.adddetail.AddMenuFragment"
+        android:label="AddMenuFragment" />
+    <fragment
+        android:id="@+id/categoryListFragment"
+        android:name="com.orderpos.ui.admin.detaillist.CategoryListFragment"
+        android:label="CategoryListFragment" />
+    <fragment
+        android:id="@+id/menuItemListFragment"
+        android:name="com.orderpos.ui.admin.detaillist.MenuItemListFragment"
+        android:label="MenuItemListFragment" />
+    <fragment
+        android:id="@+id/addEmployeeFragment"
+        android:name="com.orderpos.ui.admin.adddetail.AddEmployeeFragment"
+        android:label="AddEmployeeFragment" />
+    <fragment
+        android:id="@+id/employeeListFragment"
+        android:name="com.orderpos.ui.admin.detaillist.EmployeeListFragment"
+        android:label="EmployeeListFragment" />
+    <fragment
+        android:id="@+id/addInventoryFragment"
+        android:name="com.orderpos.ui.admin.adddetail.AddInventoryFragment"
+        android:label="AddInventoryFragment" />
+    <fragment
+        android:id="@+id/inventoryListFragment"
+        android:name="com.orderpos.ui.admin.detaillist.InventoryListFragment"
+        android:label="InventoryListFragment" />
+    <!--
+<fragment
+    android:id="@+id/nav_active_orders"
+    android:name="com.orderpos.ui.activeorder.ActiveOrderFragment"
+    android:label="ActiveOrderFragment" />
+
+<fragment
+    android:id="@+id/nav_reports"
+    android:name="com.orderpos.ui.report.ReportFragment"
+    android:label="ReportFragment" />
+<fragment
+    android:id="@+id/nav_tables"
+    android:name="com.orderpos.ui.tables.FloorPlanFragment"
+    android:label="FloorPlanFragment" />
+<fragment
+    android:id="@+id/nav_settings"
+    android:name="com.orderpos.ui.settings.SettingsFragment"
+    android:label="SettingsFragment" />
+<fragment
+    android:id="@+id/nav_logout"
+    android:name="com.orderpos.ui.settings.LogoutFragment"
+    android:label="LogoutFragment" />
+-->
+
+
+</navigation>
