@@ -10,15 +10,18 @@ import androidx.lifecycle.viewModelScope
 import com.orderpos.data.local.AppDatabase
 import com.orderpos.data.local.entities.Category
 import com.orderpos.data.local.entities.MenuItem
+import com.orderpos.data.local.entities.ReservationEntity
 import com.orderpos.data.local.entities.Restaurant
 import com.orderpos.repository.CategoryRepository
 import com.orderpos.repository.MenuItemRepository
+import com.orderpos.repository.ReservationRepository
 import com.orderpos.repository.RestaurantRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AddMenuViewModel(application: Application) : AndroidViewModel(application) {
 
+    private val reservationRepository: ReservationRepository
     private val menuItemRepository: MenuItemRepository
     private val restaurantRepository: RestaurantRepository
     private val categoryRepository: CategoryRepository
@@ -26,10 +29,13 @@ class AddMenuViewModel(application: Application) : AndroidViewModel(application)
 
     init {
         val db = AppDatabase.getDatabase(application)
+
+        reservationRepository = ReservationRepository(db.reservation())
         menuItemRepository = MenuItemRepository(db.menuItemDao())
         restaurantRepository = RestaurantRepository(db.restaurantDao())
         categoryRepository = CategoryRepository(db.categoryDao())
         allMenuList = menuItemRepository.getAllMenuItems().asLiveData()
+
     }
 
     // Dropdown LiveData
@@ -121,5 +127,13 @@ class AddMenuViewModel(application: Application) : AndroidViewModel(application)
     fun setCategoryIdFromName(name: String) {
         val id = categoryList.value?.find { it.name == name }?.categoryId ?: 0L
         categoryId.value = id
+    }
+
+    fun addReservation(reservationEntity: ReservationEntity) {
+
+        viewModelScope.launch(Dispatchers.IO) {
+            reservationRepository.saveReservations(reservationEntity)
+//            successMessage.postValue("Category added!")
+        }
     }
 }

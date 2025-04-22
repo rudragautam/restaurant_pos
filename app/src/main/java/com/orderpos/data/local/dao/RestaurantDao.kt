@@ -649,11 +649,17 @@ interface DeliveryOrderDao {
 @Dao
 interface ReservationDao {
 
+    @Query("SELECT * FROM reservations WHERE status = :status")
+    fun getDeliveryOrdersByStatus(status: String): Flow<List<ReservationEntity>>
+
     @Query("SELECT * FROM reservations ORDER BY customerName ASC")
     fun getReservations(): Flow<List<ReservationEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(reservations: List<ReservationEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(reservations: ReservationEntity)
 
     @Query("UPDATE reservations SET status = :status WHERE id = :reservationId")
     suspend fun updateStatus(reservationId: String, status: String)

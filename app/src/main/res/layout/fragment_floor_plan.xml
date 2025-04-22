@@ -61,6 +61,7 @@
 
             <!-- Status Filter Chips -->
             <com.google.android.material.chip.ChipGroup
+                app:singleSelection="true"
                 android:id="@+id/statusFilterGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

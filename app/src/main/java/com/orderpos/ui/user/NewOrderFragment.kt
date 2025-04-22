@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,26 +20,22 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.common.BitMatrix
 import com.orderpos.R
 import com.orderpos.data.local.entities.MenuItem
-import com.orderpos.databinding.FragmentDashboardBinding
+import com.orderpos.data.local.entities.ReservationEntity
 import com.orderpos.databinding.FragmentNewOrderBinding
-import com.orderpos.databinding.ItemCartBinding
-import com.orderpos.databinding.ItemMenuBinding
 import com.orderpos.ui.admin.adapter.CartAdapter
 import com.orderpos.ui.admin.adapter.MenuAdapter
-import com.orderpos.ui.admin.adapter.MenuItemAdapter
 import com.orderpos.viewmodal.AddMenuViewModel
 import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
@@ -46,6 +43,7 @@ import java.util.Locale
 
 class NewOrderFragment : Fragment() , PaymentDialog.PaymentListener{
     private val addRestaurantViewModel: AddMenuViewModel by viewModels()
+    private val addMenuViewModel: AddMenuViewModel by viewModels()
     private var _binding: FragmentNewOrderBinding? = null
     private val menuAdapter by lazy { MenuAdapter() }
     private val cartAdapter by lazy { CartAdapter() }
@@ -66,6 +64,17 @@ class NewOrderFragment : Fragment() , PaymentDialog.PaymentListener{
         }
     }
 
+    fun getCurrentTimeFormatted(): String {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val formatter = DateTimeFormatter.ofPattern("hh:mm a", Locale.getDefault())
+            LocalTime.now().format(formatter)
+        } else {
+            val dateFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
+            dateFormat.format(Date())
+        }
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -76,8 +85,38 @@ class NewOrderFragment : Fragment() , PaymentDialog.PaymentListener{
 
         binding.textView3.text=getCurrentDateFormatted()
 
+        val randomNumber = (1..10).random()
+        val randomNames = listOf(
+            "Aarav Sharma",
+            "Vivaan Mehta",
+            "Diya Patel",
+            "Anaya Kapoor",
+            "Arjun Verma",
+            "Ishaan Nair",
+            "Myra Desai",
+            "Kabir Reddy",
+            "Saanvi Joshi",
+            "Ayaan Malhotra",
+            "Tara Singh",
+            "Riya Bansal",
+            "Reyansh Chauhan",
+            "Kiara Iyer",
+            "Advait Rao",
+            "Meher Shah",
+            "Veer Khanna",
+            "Pari Saxena",
+            "Hridaan Kulkarni",
+            "Anvi Mishra"
+        )
 
 
+        val randomName = randomNames.random()
+
+
+        binding.tableSelectBtn.setOnClickListener {
+            val reservationEntity= ReservationEntity(id = "R00${(1..10).random()}", customerName = randomNames.random(), date = getCurrentDateFormatted(), time = getCurrentTimeFormatted(), tableNumber = (1..10).random(), guests = (1..10).random(), status = "confirmed")
+            addMenuViewModel.addReservation(reservationEntity)
+        }
 
         binding.rectangles.apply {
             layoutManager= GridLayoutManager(requireContext(), 4)

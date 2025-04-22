@@ -4,23 +4,21 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.orderpos.data.local.AppDatabase
-import com.orderpos.data.local.entities.Category
 import com.orderpos.data.local.entities.ReservationEntity
 import com.orderpos.repository.ReservationRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
 import java.util.*
 
 class SeatReservationViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: ReservationRepository
 //    val reservationList = MutableLiveData<List<ReservationEntity>>()
 
-    val reservationList: LiveData<List<ReservationEntity>>
+//    val reservationList: LiveData<List<ReservationEntity>>
+
+    val restaurantList = MutableLiveData<List<ReservationEntity>>()
 
     private val _selectedDate = MutableLiveData<String>().apply {
         value = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
@@ -38,28 +36,37 @@ class SeatReservationViewModel(application: Application) : AndroidViewModel(appl
 
     init {
 //        addReservation()
-//        loadReservations()
+
         val reservationDao = AppDatabase.getDatabase(application).reservation()
         repository = ReservationRepository(reservationDao)
-        reservationList = repository.getReservations().asLiveData()
+        loadReservations()
+//        reservationList = repository.getReservations().asLiveData()
     }
 
-/*    fun loadReservations() {
+    fun loadReservations() {
         viewModelScope.launch {
-            repository.getReservations().collect { restaurants ->
-                reservationList.postValue(restaurants)
+            if (currentStatusFilter!=null) {
+                repository.getReservationsFilter(currentStatusFilter).collect { restaurants ->
+                    restaurantList.postValue(restaurants)
+                }
+
+            }
+            else{
+                repository.getReservations().collect { restaurants ->
+                    restaurantList.postValue(restaurants)
+                }
             }
         }
-    }*/
+    }
 
     fun filterByDate(date: String) {
         currentDateFilter = date
-//        loadReservations()
+        loadReservations()
     }
 
     fun filterByStatus(status: String?) {
         currentStatusFilter = status
-//        loadReservations()
+        loadReservations()
     }
 
     fun setSelectedDate(date: String) {
@@ -71,7 +78,7 @@ class SeatReservationViewModel(application: Application) : AndroidViewModel(appl
             try {
                 _isLoading.value = true
                 repository.updateReservationStatus(reservationId, "confirmed")
-//                loadReservations() // Refresh the list
+                loadReservations() // Refresh the list
             } catch (e: Exception) {
                 _errorMessage.value = "Failed to confirm reservation"
             } finally {
@@ -85,7 +92,7 @@ class SeatReservationViewModel(application: Application) : AndroidViewModel(appl
             try {
                 _isLoading.value = true
                 repository.updateReservationStatus(reservationId, "cancelled")
-//                loadReservations() // Refresh the list
+                loadReservations() // Refresh the list
             } catch (e: Exception) {
                 _errorMessage.value = "Failed to cancel reservation"
             } finally {
@@ -94,7 +101,7 @@ class SeatReservationViewModel(application: Application) : AndroidViewModel(appl
         }
     }
 
-    fun addReservation() {
+    /*fun addReservation() {
 
         viewModelScope.launch(Dispatchers.IO) {
             val currentDateTime = "22-04-2023 10:00"
@@ -106,5 +113,5 @@ class SeatReservationViewModel(application: Application) : AndroidViewModel(appl
             repository.saveReservations(dummyList)
 //            successMessage.postValue("Category added!")
         }
-    }
+    }*/
 }

@@ -84,7 +84,7 @@ class FloorPlanFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.reservationList.observe(viewLifecycleOwner) { reservations ->
+        viewModel.restaurantList.observe(viewLifecycleOwner) { reservations ->
             adapter.submitList(reservations)
             binding.emptyStateText.visibility = if (reservations.isEmpty()) View.VISIBLE else View.GONE
         }
